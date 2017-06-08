@@ -1,0 +1,61 @@
+function generateMatrixCharacter(){
+   //between hex 3041 and 3096  (12353 and 12438)
+   //between hex 30a1 and 30ff  (12449 and 12543)
+   var random_number_1 = Math.floor(Math.random()* 85+ 12353);
+   var random_number_2 = Math.floor(Math.random()*94 + 12449); 
+   var chance = Math.random();
+   if(chance> 0.5){
+      return String.fromCharCode(random_number_1);
+   }else{
+      return String.fromCharCode(random_number_2);
+   }
+}
+
+function generateMatrixCharacters(num_chars){
+   var arr = [];
+   for(var i = 0; i<num_chars; i++){
+      arr.push(generateMatrixCharacter());
+   }
+   return arr.join("");
+}
+
+
+function generateGiberishCharacter(unicode_from, unicode_to){
+   var char = Math.floor(Math.random()* (unicode_to-unicode_from)+ unicode_from);
+   return String.fromCharCode(char);
+}
+
+function generateGiberishWord(num_chars, unicode_from, unicode_to){
+   var arr = [];
+   for(var i = 0; i<num_chars; i++){
+      arr.push(generateGiberishCharacter(unicode_from,unicode_to));
+   }
+   return arr.join("");
+}
+
+function generateGiberishSentence(num_words, unicode_from, unicode_to){
+   var arr = [];
+   for(var i = 0; i<num_words; i++){
+      var word_length = Math.floor(Math.random()*10);
+      arr.push(generateGiberishWord(word_length,unicode_from,unicode_to));
+   }
+   return arr.join(".  ");
+}
+
+function generateGiberishParagraph(num_sentences, unicode_from, unicode_to){
+   var arr = [];
+   for(var i = 0; i<num_sentences; i++){
+      var sentence_length = Math.floor(Math.random()*10);
+      arr.push(generateGiberishSentence(sentence_length,unicode_from,unicode_to));
+   }
+   return arr.join("");
+}
+
+function generateGiberishPage(num_paragraphs, unicode_from, unicode_to){
+   var arr = [];
+   for(var i = 0; i<num_paragraphs; i++){
+      var paragraph_length = Math.floor(Math.random()*100);
+      arr.push(generateGiberishSentence(paragraph_length,unicode_from,unicode_to));
+   }
+   return arr.join("<br><br>");
+}

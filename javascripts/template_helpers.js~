@@ -1,0 +1,16 @@
+
+var renderExternalTmpl = function(name_id, selector, data) {
+    var file = 'templates/' + name_id + '.html';
+    $.when($.ajax({
+   	url: file,
+    	dataType: "text",
+    	async: true,
+    }))
+     .done(function(tmplData) {
+      	 $.templates(name_id, tmplData);
+      	 var html = $.templates[name_id].render(data);
+      	 console.log(html);
+      	 $(selector).html(html);    
+     });    
+}
+

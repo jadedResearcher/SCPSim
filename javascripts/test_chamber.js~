@@ -1,0 +1,159 @@
+var subjects = [];
+var canvas;
+var context;
+var scale = 1;
+num_ticks = 0;
+var speed = 500;
+
+window.onload = function() {
+	canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+    init();
+};
+
+
+function init(){
+	render();
+	tick();
+}
+
+function render(){
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	var tmp_canvas = getBufferCanvas();
+	var tmp_context = tmp_canvas.getContext("2d");
+	for(var i = 0; i<subjects.length; i++){
+		subjects[i].render(tmp_context);
+	}
+	copyTmpCanvasToRealCanvas(tmp_canvas);
+	setTimeout(render, speed);
+
+}
+
+function getSubjectsNear(scp,  radius){
+	var ret = []
+	for(var i = 0; i<subjects.length; i++){
+		//don't ask how close you are to yourself
+		if(scp != subjects[i]){
+			var distance = lineDistance(subjects[i].x, scp.x, subjects[i].y, scp.y);
+			if(Math.abs(distance) < radius){
+				ret.push(subjects[i]);
+			}
+		}
+	}
+	return ret;
+}
+
+function lineDistance( x1, x2, y1, y2){
+	var xs = x2 - x1;
+    xs = xs * xs;
+    
+    var ys = y2 - y1;
+    ys = ys * ys;
+    return Math.sqrt( xs + ys );
+}
+
+function tick(){
+	num_ticks += 1;
+	var len = subjects.length; //don't recalculate length each for loop, cause you might be adding to subjects
+
+	for(var i = 0; i<len; i++){
+
+		subjects[i].tick();
+	}
+	
+	//don't let anything be removed until ticks are done.
+	for(var i = 0; i<len; i++){
+		var msg = subjects[i].apocalpyse();
+		if(msg != ""){
+			alert(msg + " You managed to contain things for: " + num_ticks + " ticks!");
+			return;
+		}
+		subjects[i].proccessDead();
+		if(len != subjects.length){
+			i = i -1; //only increment if no delete
+			len = subjects.length  //recalc len
+			
+		}
+	}
+	setTimeout(tick, speed);
+}
+
+function getBufferCanvas(){
+	var tmp_canvas = document.createElement('canvas');
+	tmp_canvas.height = canvas.height;
+	tmp_canvas.width = canvas.width;
+	return tmp_canvas;
+}
+
+function copyTmpCanvasToRealCanvas(tmp_canvas){
+	context.drawImage(tmp_canvas, 0, 0);
+}
+
+function setWorldScale(s){
+	var len = subjects.length; //don't recalculate length each for loop, cause you might be adding to subjects
+	for(var i = 0; i<len; i++){
+		scale = s;
+		subjects[i].scale = s;
+	}
+	//TODO change bg scale as well
+	var bg = $("#bg");
+	var w = bg.width() * scale;
+	var h = bg.height() * scale;
+	bg.css({"background-size": "" +w +"px,"+h+"px"});
+}
+
+function make871(){
+	var a = new scp871(canvas.width-64,canvas.height-64,scale);
+	subjects.push(a);
+}
+
+function make407(){
+	var a = new scp407(canvas.width-64,canvas.height-64,scale);
+	subjects.push(a);
+}
+
+function make417(){
+	var a = new scp417(0,0,canvas.width-64,canvas.height-64,scale);
+	subjects.push(a);
+}
+
+function make073(){
+	var a = new scp073(canvas.width-64,canvas.height-64,scale);
+	subjects.push(a);
+}
+
+function make008(){
+	var a = new scp008(0,0,canvas.width-64,canvas.height-64,scale);
+	a.randomLocation();
+	subjects.push(a);
+}
+
+function makeDSubject(){
+	var d = new dClass(0,0,canvas.width,canvas.height,scale);
+	subjects.push(d);
+}
+
+function makePlant407(){
+	var d = new plant407(10,10,canvas.width,canvas.height,scale);
+	subjects.push(d);
+}
+
+function make184(){
+	var d = new scp184(canvas.width,canvas.height,scale);
+	subjects.push(d);
+}
+
+function makeDeadHuman(){
+	var d = new deadHuman(-999,-999,canvas.width,canvas.height,scale);
+	subjects.push(d);
+}
+
+
+
+function removeFromArray(array, value) {
+    var idx = array.indexOf(value);
+    if (idx !== -1) {
+        array.splice(idx, 1);
+    }
+    return array;
+}

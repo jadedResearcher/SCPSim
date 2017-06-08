@@ -1,0 +1,14 @@
+window.onload = function(){
+		   update();
+		}
+
+		var refresh_speed = 1;
+		var giberish  = "";
+			function update(){
+			    giberish = generateGiberishPage(5, 0, 109384);		    
+                data = {"giberish": giberish}
+                renderExternalTmpl("template", "#replace", data);
+                	setTimeout(update, refresh_speed);
+            }
+
+

@@ -1,0 +1,22 @@
+//d class personel are alive and human
+//should be a circle with an expression and a color
+//yellow happy, red rage, green sick, whatever.
+//can and will eat anything edible. approaches edible food, eats it if in range.
+// can be dead.
+
+function plant(max_x,max_y){
+	this.imageString = "";
+	this.max_x = max_x;
+	this.max_y = max_y;
+	this.x = 0;
+	this.y = 0;
+	this.age = 0;
+	this.velocity = 50;
+	this.happy = 0;
+	this.health = 100;
+
+	
+}
+   
+plant.prototype = Object.create(subjectPrototype.prototype);
+

@@ -1,0 +1,47 @@
+window.onload = function(){
+		   updateJson();
+		}
+		var json_data;
+		var refresh_speed = 1000;
+		
+		//this won't work until I'm hosted by bob, no cross session scripting
+			function updateJson(){
+			//http://10.249.0.54:3490/hls/stats
+        	   var jqxhr = $.getJSON("/hls/stats", function(data) {;
+            	   json_data = data.channels;
+
+            })
+                    .error(function(data) {
+                        json_data = {"streams": [
+  {
+    "CCErrorCounts": {
+      "s1": 0,
+      "s10": 0,
+      "s60": 0
+    },
+    "byteCounts": {
+      "s1": Math.floor(Math.random()*12015080),
+      "s10": Math.floor(Math.random()*12015080),
+      "s60": Math.floor(Math.random()*12015080)
+    },
+    "host": "228.4.1.3",
+    "packetCounts": {
+      "s1": Math.floor(Math.random()*1280),
+      "s10": Math.floor(Math.random()*1280),
+      "s60": Math.floor(Math.random()*1280)
+    },
+    "port": Math.floor(Math.random()* 5103+1000),
+    "tag": "SERVER ERROR"
+  },
+  {
+    "disabled": true,
+    "tag": "SERVER ERROR"
+  }
+]};
+                    }).always(function(){
+                      //$( "#dynamic_table_row" ).html($( "#template" ).render( json_data["streams"] ));
+                      renderExternalTmpl("template", "#dynamic_table_row", json_data["streams"]);
+                      setTimeout(updateJson, refresh_speed);
+                    });
+
+        };//end update Json

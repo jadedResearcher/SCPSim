@@ -1,0 +1,10 @@
+//should get the domain of the rails server hosting this, which should be (for now) the same as the java server
+var global_server_host = document.domain;
+if(global_server_host == ""){
+	console.log("error host");
+    global_server_host = "10.249.0.54";
+}
+//port the java server is running on
+var global_server_port = "3000";
+//the url the javascripts will use as a base for posts and gets to the java server
+var global_server_url = "http://" +global_server_host + ":" + global_server_port;

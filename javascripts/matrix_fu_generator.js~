@@ -1,0 +1,20 @@
+function generateMatrixCharacter(){
+   //between hex 3041 and 3096  (12353 and 12438)
+   //between hex 30a1 and 30ff  (12449 and 12543)
+   var random_number_1 = Math.floor(Math.random()* 85+ 12353);
+   var random_number_2 = Math.floor(Math.random()*94 + 12449); 
+   var chance = Math.random();
+   if(chance> 0.5){
+      return String.fromCharCode(random_number_1);
+   }else{
+      return String.fromCharCode(random_number_2);
+   }
+}
+
+function generateMatrixCharacters(num_chars){
+   var arr = [];
+   for(var i = 0; i<num_chars; i++){
+      arr.push(generateMatrixCharacter();
+   }
+   return arr.join("");
+}

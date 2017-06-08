@@ -1,0 +1,5 @@
+//initially appears to be fruit. 
+//if something alive approaches, bursts into random insects.
+//otherwise vanishes on it's own.
+//insects pursue living creatures and sting them. (damage over time).
+//on death, the creature spawns a new 417 tree.

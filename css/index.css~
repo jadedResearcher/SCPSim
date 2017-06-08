@@ -1,0 +1,39 @@
+canvas {
+ padding: 0px;
+ margin-top: 0px;
+ margin-right: 0px;
+ margin-bottom: 0px;
+ margin-left: 0px;
+ background: #ff00ff;
+ position: absolute;
+ top: 0;
+ left: 0;
+}
+
+body{
+ background: #000000;
+}
+
+.overlay{
+ padding: 0px;
+ margin-top: 0px;
+ margin-right: 0px;
+ margin-bottom: 0px;
+ margin-left: 0px;
+ position: absolute;
+ top: 0;
+ left: 0;
+ opacity: 0.0;
+}
+
+.overlayHB{
+ padding: 0px;
+ margin-top: 0px;
+ margin-right: 0px;
+ margin-bottom: 0px;
+ margin-left: 0px;
+ position: absolute;
+ top: 0;
+ left: -1000;
+ opacity: 1.0;
+}
